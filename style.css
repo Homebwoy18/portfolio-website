@@ -1,0 +1,58 @@
+body {
+    background: #f0f2f5;
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Hide scrollbar during animation */
+}
+
+#greeting {
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+#date {
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: #555;
+}
+
+.card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 1s ease-in-out;
+    transform: translateY(100vh);
+    opacity: 0;
+}
+
+.card.visible {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+#total-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+#btn {
+    margin-top: 20px;
+}
+
+#copy-message {
+    display: none;
+    margin-top: 20px;
+}
+
+@media screen and (max-width: 768px) {
+    .card {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .card {
+        width: 100%;
+        padding: 10px;
+    }
+}
