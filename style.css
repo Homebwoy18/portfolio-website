@@ -15,6 +15,21 @@ body {
     color: #555;
 }
 
+.checklist{
+
+    display: flex;
+    gap: 2px;
+    flex-direction: column;
+}
+
+label{
+
+    font-weight:600;
+    font: bold;
+}
+
+
+
 .card {
     background: #fff;
     border-radius: 10px;

@@ -8,9 +8,71 @@ document.addEventListener('DOMContentLoaded', () => {
     const copyMessage = document.getElementById('copy-message');
     const inputOutputDiv = document.getElementById('input-output');
     const dateElem = document.getElementById('date');
+    const Normal = document.getElementById('Normal');
+    const Express = document.getElementById('Express');
 
-    gbInput.addEventListener('input', handleCalculate);
     button.addEventListener('click', handleCopy);
+
+    
+
+    gbInput.addEventListener('input',function handleCalculate() {
+
+
+        
+        if(Normal.checked){
+      
+        const inputValue = gbInput.value;
+        const gbValues = inputValue.split('+');
+        const totalPrice = calculateTotal(gbValues);
+
+        packageList.innerHTML = gbValues.map(gb => `<li class="list-group-item">${gb.trim()}GB</li>`).join('');
+        priceList.innerHTML = gbValues.map(gb => `<li class="list-group-item">${prices[gb.trim().replace('GB', '')] || 0} cedis</li>`).join('');
+        totalPriceElem.innerHTML = `Total Price: ${totalPrice} cedis`;
+
+    
+        calculateTotal(gbArray);
+
+}
+
+if (Normal.checked && Express.checked) {
+
+    write('check only one *').style.Color = 'red';
+    
+} else {
+    
+}
+    
+    });
+
+
+
+    //Express condition
+
+
+    gbInput.addEventListener('input',function handleCalculateExpress() {
+  
+        //gbInput.addEventListener('input', handleCalculate);
+
+        
+        if(Express.checked){
+      
+        const inputValue = gbInput.value;
+        const gbValues = inputValue.split('+');
+        const totalPrice = calculateTotalExpress(gbValues);
+
+        packageList.innerHTML = gbValues.map(gb => `<li class="list-group-item">${gb.trim()}GB</li>`).join('');
+        priceList.innerHTML = gbValues.map(gb => `<li class="list-group-item">${Eprices[gb.trim().replace('GB', '')] || 0} cedis</li>`).join('');
+        totalPriceElem.innerHTML = `Total Price: ${totalPrice} cedis`;
+
+    
+        calculateTotalExpress(gbArray);
+
+}
+    
+    });
+
+
+
 
     displayGreeting();
     displayDate();
@@ -21,15 +83,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 1000);
     }, 100);
 
-    function handleCalculate() {
-        const inputValue = gbInput.value;
-        const gbValues = inputValue.split('+');
-        const totalPrice = calculateTotal(gbValues);
 
-        packageList.innerHTML = gbValues.map(gb => `<li class="list-group-item">${gb.trim()}GB</li>`).join('');
-        priceList.innerHTML = gbValues.map(gb => `<li class="list-group-item">${prices[gb.trim().replace('GB', '')] || 0} cedis</li>`).join('');
-        totalPriceElem.innerHTML = `Total Price: ${totalPrice} cedis`;
-    }
+  
+
 
     function calculateTotal(gbArray) {
         let totalPrice = 0;
@@ -43,6 +99,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         return totalPrice;
     }
+
+///hanling express prices here ........
+
+
+
+function calculateTotalExpress(gbArray) {
+    let totalPrice = 0;
+    gbArray.forEach(gb => {
+        const packagePrice = Eprices[gb.trim().replace('GB', '')];
+        if (packagePrice) {
+            totalPrice += packagePrice;
+        } else {
+            console.error(`Package not found: ${gb.trim()}GB`);
+        }
+    });
+    return totalPrice;
+}
+
+
+
+    
 
     function handleCopy() {
         const packageItems = Array.from(packageList.children).map(item => item.innerText.trim());
@@ -89,24 +166,50 @@ document.addEventListener('DOMContentLoaded', () => {
         '1': 8,
         '2': 13,
         '3': 20,
-        '4': 24.50,
-        '5': 29.50,
-        '6': 36.50,
-        '7': 39.50,
-        '8': 45.50,
-        '9': 47.50,
+        '4': 25,
+        '5': 30,
+        '6': 37,
+        '7': 40,
+        '8': 46,
+        '9': 44,
+        '10': 50,
+        '11': 55,
+        '12': 65.50,
+        '15': 75,
+        '20': 93,
+        '25': 128,
+        '30': 145,
+        '35': 164,
+        '40': 185,
+        '45': 215,
+        '50': 215,
+        '80': 370,
+        '100': 430,
+    };
+
+
+    const Eprices = {
+        '1': 9,
+        '2': 15,
+        '3': 22,
+        '4': 25,
+        '5': 31,
+        '6': 38,
+        '7': 41,
+        '8': 46,
+        '9': 49,
         '10': 51,
         '11': 55,
         '12': 65.50,
-        '15': 80.50,
-        '20': 97,
-        '25': 116,
-        '30': 145,
-        '35': 155,
-        '40': 180,
-        '45': 200,
-        '50': 204,
-        '80': 365,
-        '100': 430,
+        '15': 83,
+        '20': 99,
+        '25': 120,
+        '30': 147,
+        '35': 158,
+        '40': 183,
+        '45': 206,
+        '50': 220,
+        '80': 345,
+        '100': 450,
     };
 });
